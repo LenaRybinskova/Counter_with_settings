@@ -38,7 +38,6 @@ const Counter = () => {
         }
     })
 
-
     const [textError, setTextError] = useState("")
     const [disabledSetBtn, setDisabledSetBtn] = useState(true)
 
