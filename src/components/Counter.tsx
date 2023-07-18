@@ -10,6 +10,8 @@ const Counter = () => {
     const INITIAL_START_VALUE = 0
     const INITIAL_MAX_VALUE = 5
 
+    //with routing
+
     const [display, setDisplay] = useState(() => {
         let startValueAsString = localStorage.getItem("startValue")
         if (startValueAsString) {
