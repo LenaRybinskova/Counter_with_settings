@@ -10,7 +10,6 @@ body {
     padding: 200px 250px 170px;
 }
 
-
 .box {
     display: flex;
     flex-direction: column;
@@ -18,7 +17,6 @@ body {
     border-radius: 7px;
     min-width: 200px;
     height: 120px;
-
 }
 
 .settings {
@@ -26,7 +24,6 @@ body {
     border-radius: 7px;
     height: 60px;
     margin: 5px;
-
 }
 
 .text {
@@ -38,19 +35,12 @@ body {
     font-weight: bold;
     font-size: 12px;
     margin: 5px;
-
 }
 
-.errortext {
+.errorText {
     color: #b21249;
+    font-size: 20px;
 }
-
-/*.display {*/
-/*    margin: 8px;*/
-/*    border: 2px solid #7feaff;*/
-/*    border-radius: 7px;*/
-/*    color: #7feaff;*/
-/*}*/
 
 .btnContainer {
     display: flex;
@@ -59,10 +49,8 @@ body {
     border: 2px solid #7feaff;
     border-radius: 7px;
     margin: 5px;
-
-    /*padding: 15px 15px;*/
-    /*gap: 30px;*/
 }
+
 .jcCenter{
     justify-content: center;
 }
@@ -71,26 +59,3 @@ body {
     justify-content: space-between;
 }
 
-
-/*.error {*/
-/*    color: brown;*/
-/*    font-weight: bold;*/
-/*}*/
-
-/*.btn {*/
-/*    width: 100px;*/
-/*    height: 50px;*/
-/*    padding: 10px;*/
-/*    font-weight: bold;*/
-/*    border-radius: 10px;*/
-/*}*/
-
-/*.counter {*/
-/*    width: 200px;*/
-/*    height: 100px;*/
-/*    border: 1px solid deepskyblue;*/
-/*}*/
-
-
-/*#b21249 красный ошибки*/
-/*   #7feaff бирюзовый*/

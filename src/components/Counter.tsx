@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import s from "./Counter.module.css"
-import {Button} from "./Button";
-import {Setting} from "./Setting";
+import {Button} from "./Button/Button";
+import {Setting} from "./Setting/Setting";
+import {Display} from "./Display/Display";
 
 
 // сократила кол-в стейтов, данные загр из локалСтор, все работает
@@ -94,17 +95,12 @@ const Counter = () => {
         }
     }, [maxValue, startValue])
 
-
-    const setErrorMessage = infoMessage ==="incorrect value!" ? s.errortext: ""
-
-
-
     return (
         <div className={s.container}>
             <div className={s.box}>
                 <div className={s.settings}>
-                    <Setting value={maxValue} callback={maxValueHandler} name={"maxValue:"} styleError={infoMessage ==="incorrect value!"}/>
-                    <Setting value={startValue} callback={startValueHandler} name={"startValue:"} styleError={infoMessage ==="incorrect value!"}/>
+                    <Setting value={maxValue} callback={maxValueHandler} name={"maxValue:"} styleError={infoMessage === "incorrect value!"}/>
+                    <Setting value={startValue} callback={startValueHandler} name={"startValue:"} styleError={infoMessage === "incorrect value!"}/>
                 </div>
                 <div className={`${s.btnContainer} ${s.jcCenter}`}>
                     <Button callback={setToLocalStorageHandler} name={"set"} dis={isSetBtnDisabled}/>
@@ -113,21 +109,15 @@ const Counter = () => {
 
             <div className={s.box}>
                 <div className={`${s.settings} ${s.text}`}>
-                    {isEditMode ? <div className={setErrorMessage}>{infoMessage}</div> : <div className={display === maxValue ? s.errortext : ""}>{display}</div>}
+                    <Display isEditMode={isEditMode} display ={display} maxValue={maxValue} infoMessage ={infoMessage}/>
                 </div>
                 <div className={`${s.btnContainer} ${s.jcSpaceBetween}`}>
                     <Button callback={incHandler} name={"inc"} dis={display === maxValue || !!infoMessage}/>
                     <Button callback={resetBtnHandler} name={"reset"} dis={!!infoMessage}/>
                 </div>
             </div>
-
-
         </div>
     );
 };
 
 export default Counter;
-
-
-{/*<div className={counter < maxCountValue ? "" : s.error}>{counter}</div>*/
-}

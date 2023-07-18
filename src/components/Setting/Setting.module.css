@@ -17,6 +17,7 @@ input {
     width:70px;
     outline-color: #7feaff;
     border-radius: 5px;
+    text-align: center;
 }
 
 .error{

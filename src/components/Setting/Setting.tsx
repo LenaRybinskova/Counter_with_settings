@@ -15,7 +15,6 @@ export const Setting = ({name, value, callback, styleError}: SettingType) => {
         callback(Number(e.currentTarget.value))
     }
 
-
     return (
         <div className={s.containerSetting}>
             <div className={s.text}>{name}</div>
