@@ -1,7 +1,74 @@
+body {
+    background-color: #22252b;
+}
+
 .container {
     display: flex;
     flex-direction: row;
-    gap: 100px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 200px 250px 170px;
+}
+
+
+.box {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #7feaff;
+    border-radius: 7px;
+    min-width: 200px;
+    height: 120px;
+
+}
+
+.settings {
+    border: 2px solid #7feaff;
+    border-radius: 7px;
+    height: 60px;
+    margin: 5px;
+
+}
+
+.text {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #7feaff;
+    font-weight: bold;
+    font-size: 12px;
+    margin: 5px;
+
+}
+
+.errortext {
+    color: #b21249;
+}
+
+/*.display {*/
+/*    margin: 8px;*/
+/*    border: 2px solid #7feaff;*/
+/*    border-radius: 7px;*/
+/*    color: #7feaff;*/
+/*}*/
+
+.btnContainer {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between;*/
+    border: 2px solid #7feaff;
+    border-radius: 7px;
+    margin: 5px;
+
+    /*padding: 15px 15px;*/
+    /*gap: 30px;*/
+}
+.jcCenter{
+    justify-content: center;
+}
+
+.jcSpaceBetween{
+    justify-content: space-between;
 }
 
 
@@ -25,6 +92,5 @@
 /*}*/
 
 
-
-
-
+/*#b21249 красный ошибки*/
+/*   #7feaff бирюзовый*/

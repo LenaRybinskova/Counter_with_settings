@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import s from "./Counter.module.css"
 import {Button} from "./Button";
 import {Setting} from "./Setting";
-import {log} from "util";
 
 
 // сократила кол-в стейтов, данные загр из локалСтор, все работает
@@ -96,20 +95,27 @@ const Counter = () => {
     }, [maxValue, startValue])
 
 
+    const setErrorMessage = infoMessage ==="incorrect value!" ? s.errortext: ""
+
+
+
     return (
         <div className={s.container}>
-            <div>
-                <Setting value={maxValue} callback={maxValueHandler} name={"maxValue"}/>
-                <Setting value={startValue} callback={startValueHandler} name={"startValue"}/>
-                <Button callback={setToLocalStorageHandler} name={"set"} dis={isSetBtnDisabled}/>
-
+            <div className={s.box}>
+                <div className={s.settings}>
+                    <Setting value={maxValue} callback={maxValueHandler} name={"maxValue:"} styleError={infoMessage ==="incorrect value!"}/>
+                    <Setting value={startValue} callback={startValueHandler} name={"startValue:"} styleError={infoMessage ==="incorrect value!"}/>
+                </div>
+                <div className={`${s.btnContainer} ${s.jcCenter}`}>
+                    <Button callback={setToLocalStorageHandler} name={"set"} dis={isSetBtnDisabled}/>
+                </div>
             </div>
 
-            <div>
-                <div>
-                    {isEditMode ? <div>{infoMessage}</div> : <div>{display}</div>}
+            <div className={s.box}>
+                <div className={`${s.settings} ${s.text}`}>
+                    {isEditMode ? <div className={setErrorMessage}>{infoMessage}</div> : <div className={display === maxValue ? s.errortext : ""}>{display}</div>}
                 </div>
-                <div>
+                <div className={`${s.btnContainer} ${s.jcSpaceBetween}`}>
                     <Button callback={incHandler} name={"inc"} dis={display === maxValue || !!infoMessage}/>
                     <Button callback={resetBtnHandler} name={"reset"} dis={!!infoMessage}/>
                 </div>
