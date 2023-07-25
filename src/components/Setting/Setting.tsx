@@ -6,7 +6,7 @@ type SettingType = {
     name: string
     value: number
     callback: (value: number) => void
-    styleError:boolean
+    styleError: boolean
 }
 
 export const Setting = ({name, value, callback, styleError}: SettingType) => {
@@ -18,7 +18,7 @@ export const Setting = ({name, value, callback, styleError}: SettingType) => {
     return (
         <div className={s.containerSetting}>
             <div className={s.text}>{name}</div>
-            <input type="number" defaultValue={value} onChange={onchangeHandler} className={styleError ? s.error: "" }/>
+            <input type="number" value={value} onChange={onchangeHandler} className={styleError ? s.error : ""}/>
         </div>
     );
 };

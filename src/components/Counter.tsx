@@ -5,14 +5,14 @@ import {Setting} from "./Setting/Setting";
 import {Display} from "./Display/Display";
 
 
-// после кодРевью 19.07.23
-type InfoMessageType = "incorrect value!" | "enter values and press 'set'"| ""
+
+type InfoMessageType = "incorrect value!" | "enter values and press 'set'" | ""
 
 
 const Counter = () => {
 
     const [display, setDisplay] = useState<number>(0)
-    const [maxValue, setMaxValue] = useState<number>(0)
+    const [maxValue, setMaxValue] = useState<number>(5)
     const [startValue, setStartValue] = useState<number>(0)
 
     const [infoMessage, setInfoMessage] = useState<InfoMessageType>("")
@@ -61,23 +61,6 @@ const Counter = () => {
         setEditMode(false)
     }
 
-    useEffect(() => {
-        let maxValueAsString = localStorage.getItem("maxValue")
-        if (maxValueAsString) {
-            return JSON.parse(maxValueAsString)
-        } else {
-            return 0
-        }
-    }, [])
-
-    useEffect(() => {
-        let startValueAsString = localStorage.getItem("startValue")
-        if (startValueAsString) {
-            return JSON.parse(startValueAsString)
-        } else {
-            return 0
-        }
-    }, [])
 
     useEffect(() => {
         if (isEditMode) {
@@ -89,6 +72,20 @@ const Counter = () => {
             setIsSetBtnDisabled(true)
         }
     }, [maxValue, startValue])
+
+
+    useEffect(() => {
+        let startValueAsString = localStorage.getItem("startValue")
+        let maxValueAsString = localStorage.getItem("maxValue")
+
+        if (startValueAsString && maxValueAsString) {
+            setDisplay(JSON.parse(startValueAsString))
+            setStartValue(JSON.parse(startValueAsString))
+            setMaxValue(JSON.parse(maxValueAsString))
+        } else {
+            setDisplay(0)
+        }
+    }, []);
 
 
     return (
@@ -106,7 +103,8 @@ const Counter = () => {
 
             <div className={s.box}>
                 <div className={`${s.settings} ${s.text}`}>
-                    <Display isEditMode={isEditMode} display={display} maxValue={maxValue} infoMessage={infoMessage}/>
+                    <Display isEditMode={isEditMode} display={display} maxValue={maxValue}
+                             infoMessage={infoMessage}/>
                 </div>
                 <div className={`${s.btnContainer} ${s.jcSpaceBetween}`}>
                     <Button callback={incHandler} name={"inc"} dis={display === maxValue || !!infoMessage}/>
