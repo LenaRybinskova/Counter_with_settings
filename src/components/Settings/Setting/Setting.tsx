@@ -1,15 +1,15 @@
 import React, {ChangeEvent} from 'react';
-import s from "./Setting.module.css"
+import s from './Setting.module.css'
 
 
 type SettingType = {
     name: string
     value: number
     callback: (value: number) => void
-    styleError: boolean
+    hasError: boolean
 }
 
-export const Setting = ({name, value, callback, styleError}: SettingType) => {
+export const Setting = ({name, value, callback, hasError}: SettingType) => {
 
     const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         callback(Number(e.currentTarget.value))
@@ -18,7 +18,7 @@ export const Setting = ({name, value, callback, styleError}: SettingType) => {
     return (
         <div className={s.containerSetting}>
             <div className={s.text}>{name}</div>
-            <input type="number" value={value} onChange={onchangeHandler} className={styleError ? s.error : ""}/>
+            <input type="number" value={value} onChange={onchangeHandler} className={hasError ? s.error : ''}/>
         </div>
     );
 };

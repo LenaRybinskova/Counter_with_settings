@@ -1,4 +1,96 @@
 import React, {useEffect, useState} from 'react';
+import s from './Counter.module.css'
+import Screen from './Screen/Screen';
+import Settings from './Settings/Settings';
+import {Routes, Route, Navigate} from 'react-router-dom';
+
+
+const Counter = () => {
+
+    const [display, setDisplay] = useState<number>(0)
+    const [maxValue, setMaxValue] = useState<number>(5)
+    const [startValue, setStartValue] = useState<number>(0)
+    const [hasError, setHasError] = useState<boolean>(false)
+
+    const startValueHandler = (value: number) => {
+        setStartValue(value)
+        /*        setEditMode(true)*/
+    }
+
+    const maxValueHandler = (value: number) => {
+        setMaxValue(value)
+    }
+
+    function isIncorrectData() {
+        if (maxValue === startValue || maxValue < startValue || startValue < 0 || maxValue < 0 || !Number.isInteger(maxValue) ||
+            !Number.isInteger(startValue))
+            return true
+        return false
+    }
+
+    useEffect(() => {
+        if (isIncorrectData()) {
+            setHasError(true)
+        } else {
+            setHasError(false)
+        }
+    }, [maxValue, startValue])
+
+
+    useEffect(() => {
+        let startValueAsString = localStorage.getItem('startValue')
+        let maxValueAsString = localStorage.getItem('maxValue')
+
+        if (startValueAsString && maxValueAsString) {
+            setDisplay(JSON.parse(startValueAsString))
+            setStartValue(JSON.parse(startValueAsString))
+            setMaxValue(JSON.parse(maxValueAsString))
+        } else {
+            setDisplay(0)
+        }
+    }, []);
+
+    const setToLocalStorageHandler = () => {
+        localStorage.setItem('maxValue', JSON.stringify(maxValue))
+        localStorage.setItem('startValue', JSON.stringify(startValue))
+        setDisplay(startValue)
+    }
+
+    const callbackIncHandler = (newDisplay: number) => {
+        setDisplay(newDisplay)
+    }
+
+    return (
+        <div className={s.container}>
+
+            <Routes>
+                <Route path={'/'} element={<Navigate to={'/screen'}/>}/>
+
+                <Route path={'/settings'} element={<Settings
+                    maxValue={maxValue}
+                    startValue={startValue}
+                    startValueHandler={startValueHandler}
+                    maxValueHandler={maxValueHandler}
+                    setToLocalStorageHandler={setToLocalStorageHandler}
+                    hasError={hasError}
+                />}/>
+
+                < Route path={'/screen'} element={<Screen
+                    maxValue={maxValue}
+                    startValue={startValue}
+                    display={display}
+                    callbackInc={callbackIncHandler}
+                />}/>
+            </Routes>
+        </div>
+    );
+};
+
+export default Counter;
+
+
+//было
+/*import React, {useEffect, useState} from 'react';
 import s from "./Counter.module.css"
 import {Button} from "./Button/Button";
 import {Setting} from "./Setting/Setting";
@@ -115,4 +207,4 @@ const Counter = () => {
     );
 };
 
-export default Counter;
+export default Counter;*/
