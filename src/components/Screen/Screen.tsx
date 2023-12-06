@@ -1,43 +1,47 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Display} from './Display/Display';
 import {Button} from '../Button/Button';
 import s from '../Counter.module.css'
-import {NavLink, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {incrementAC, resetAC} from '../../state/counter-reducer';
+import {CounterRootStateType} from '../../state/store';
 
 
-type ScreenType = {
-    maxValue: number
-    startValue: number
-    display: number
-/*    hasError: boolean*/
-    callbackInc: (display: number) => void
-}
+type ScreenType = {}
 
 
 const Screen = (props: ScreenType) => {
+
+    const dispatch = useDispatch()
+    const currentValueSelector = useSelector<CounterRootStateType,number>(state => state.display.currentValue)
+    const startValueSelector = useSelector<CounterRootStateType, number>(state => state.display.startValue)
+    const maxValueSelector=useSelector<CounterRootStateType,number>(state=>state.display.maxValue)
+
     const navigate = useNavigate()
 
-    const incHandler = () => props.display < props.maxValue && props.callbackInc(props.display + 1)
+    const incHandler = () => {
+        if (currentValueSelector < maxValueSelector) {
+            dispatch(incrementAC())
+            console.log('incHandler')
+        }
+    }
 
     const resetBtnHandler = () => {
-        let startValueAsString = localStorage.getItem('startValue')
-        if (startValueAsString) {
-            props.callbackInc(JSON.parse(startValueAsString))
-        } else {
-            props.callbackInc(0)
-        }
+        dispatch(resetAC())
     }
 
     return (
         <div className={s.box}>
             <div className={`${s.settings} ${s.text}`}>
                 <Display
-                    display={props.display}
-                    maxValue={props.maxValue}
+                    // тут стартовые не подтягиваются
+                    display={currentValueSelector}
+                    maxValue={maxValueSelector}
                 />
             </div>
             <div className={`${s.btnContainer} ${s.jcSpaceBetween}`}>
-                <Button callback={incHandler} name={'inc'} dis={props.display === props.maxValue}/>
+                <Button callback={incHandler} name={'inc'} dis={currentValueSelector === maxValueSelector}/>
                 <Button callback={resetBtnHandler} name={'reset'} dis={false}/>
                 <Button callback={() => {navigate('/settings')}} name={'set'} dis={false}/>
             </div>

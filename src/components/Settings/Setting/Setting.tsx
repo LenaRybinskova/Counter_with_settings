@@ -23,3 +23,4 @@ export const Setting = ({name, value, callback, hasError}: SettingType) => {
     );
 };
 
+/*hasError ? s.error : ''*/
